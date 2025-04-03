@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <h1>Welcome to my website</h1>
+    <button id="confettiButton">Click me for confetti!</button>
+    <script>
+        document.getElementById('confettiButton').addEventListener('click', function() {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.top = '0';
+            confetti.style.left = '0';
+            confetti.style.width = '100%';
+            confetti.style.height = '100%';
+            confetti.style.pointerEvents = 'none';
+            confetti.style.zIndex = '9999';
+            confetti.style.overflow = 'hidden';
+
+            for (let i = 0; i < 100; i++) {
+                const piece = document.createElement('div');
+                piece.style.position = 'absolute';
+                piece.style.width = '10px';
+                piece.style.height = '10px';
+                piece.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                piece.style.top = `${Math.random() * 100}%`;
+                piece.style.left = `${Math.random() * 100}%`;
+                piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+                piece.style.animation = `fall ${Math.random() * 3 + 2}s linear infinite`;
+                confetti.appendChild(piece);
+            }
+
+            document.body.appendChild(confetti);
+
+            setTimeout(() => {
+                document.body.removeChild(confetti);
+            }, 3000);
+        });
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                }
+                100% {
+                    transform: translateY(100vh) rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
